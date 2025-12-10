@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2024
 
-;; Author: Mar <your-email@example.com>
-;; URL: https://github.com/YOUR-USERNAME/visual-regexp-posframe
+;; Author: Mar Lopez
+;; URL: https://github.com/lopez-mar/visual-regexp-posframe
 ;; Version: 0.1.0
 ;; Package-Requires: ((emacs "26.1") (posframe "1.4.0") (visual-regexp "1.1"))
 ;; Keywords: matching, convenience
@@ -202,6 +202,14 @@ Useful if posframes get stuck visible."
   (when vr-posframe--buffer
     (posframe-hide vr-posframe--buffer)
     (setq vr-posframe--buffer nil)))
+
+(defun my-fix-vr-target-window ()                                                                                                          
+    (advice-add 'vr--target-window :override                                                                                                   
+                (lambda ()                                                                                                                     
+                  (when vr--target-buffer                                                                                                      
+                    (get-buffer-window vr--target-buffer t)))))                                                                                
+                                                                                                                                               
+  (my-fix-vr-target-window)  
 
 (provide 'visual-regexp-posframe)
 ;;; visual-regexp-posframe.el ends here
