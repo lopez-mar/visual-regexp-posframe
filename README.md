@@ -1,8 +1,6 @@
 # visual-regexp-posframe
 
-Display [visual-regexp](https://github.com/benma/visual-regexp.el) prompts in a posframe, positioned near your cursor instead of the bottom minibuffer.
-
-![Demo](demo.gif)
+Display [visual-regexp](https://github.com/benma/visual-regexp.el) prompts in a posframe, positioned near your cursor instead of the bottom minibuffer
 
 ## Features
 
@@ -23,7 +21,9 @@ When using `visual-regexp` for search and replace with live preview, the default
 ```elisp
 (use-package visual-regexp-posframe
   :straight (:host github :repo "YOUR-USERNAME/visual-regexp-posframe")
-  :after visual-regexp
+  :after visual-regex
+  :custom
+  (vr-posframe-poshandler . #'posframe-poshandler-frame-bottom-center)  
   :config
   (vr-posframe-mode 1))
 ```
@@ -33,7 +33,7 @@ When using `visual-regexp` for search and replace with live preview, the default
 1. Clone this repository:
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/visual-regexp-posframe.git
+git clone https://github.com/lopez-mar/visual-regexp-posframe.git
 ```
 
 1. Add to your load path and require:
@@ -125,47 +125,6 @@ For total control, write your own position handler:
 
 (setq vr-posframe-poshandler #'my-vr-posframe-poshandler)
 ```
-
-## Integration with Other Packages
-
-### vertico-posframe
-
-Works seamlessly alongside `vertico-posframe`. Position them differently to avoid overlap:
-
-```elisp
-;; visual-regexp at top, vertico at bottom/center
-(setq vr-posframe-poshandler #'posframe-poshandler-frame-top-center)
-```
-
-### mini-frame
-
-Compatible with `mini-frame` for other commands. Each package handles different use cases:
-
-```elisp
-(use-package mini-frame
-  :config
-  (setq mini-frame-show-parameters
-        '((top . 0.5) (left . 0.5)))
-  (mini-frame-mode 1))
-
-(use-package visual-regexp-posframe
-  :config
-  (vr-posframe-mode 1))
-```
-
-## Troubleshooting
-
-### Posframe gets stuck visible
-
-Run `M-x vr-posframe-cleanup` to manually hide any stuck posframes.
-
-### Visual feedback not appearing in buffer
-
-This package includes a fix for the `window-live-p` issue that can occur with child frames. If you still experience issues, ensure you’re using the latest version.
-
-### Posframe appears in wrong location
-
-Try a different `vr-posframe-poshandler`. Frame-relative handlers (like `posframe-poshandler-frame-center`) are more reliable than point-relative ones in complex window configurations.
 
 ## How It Works
 
