@@ -34,7 +34,7 @@
   :group 'visual-regexp
   :prefix "vr-posframe-")
 
-(defcustom vr-posframe-poshandler #'posframe-poshandler-window-top-center ;; #'posframe-poshandler-point-bottom-left-corner
+(defcustom vr-posframe-poshandler #'posframe-poshandler-window-top-center
   "Posframe position handler for visual-regexp.
 See `posframe-poshandler-functions' for available handlers."
   :type 'function
@@ -106,7 +106,6 @@ Returns the point in the target buffer where visual-regexp was invoked."
         (window-resize minibuffer-window
                        (- (window-pixel-height minibuffer-window))
                        nil nil 'pixelwise)
-        ;; Scroll minibuffer content out of view
         (set-window-vscroll minibuffer-window 100))
       
       ;; Show minibuffer buffer in posframe
